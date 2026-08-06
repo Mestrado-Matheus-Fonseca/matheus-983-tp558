@@ -1,14 +1,3 @@
-{
-  "ddpm_train_mse": 0.046073920838832855,
-  "ddpm_validation_mse": 0.047181838136911396,
-  "evaluator_test_accuracy": 0.9159,
-  "embedding_kid": 77.16811007214935,
-  "mean_classifier_confidence": 0.6924877762794495,
-  "class_coverage": 10,
-  "normalized_class_entropy": 0.8296558856964111,
-  "embedding_diversity": 18.52294921875,
-  "nearest_real_embedding_distance": 12.36584186553955,
-  "pixel_histogram_total_variation": 0.22975891828536987,
-  "generation_seconds": 1505.2948425840004,
-  "images_per_second": 6.64321680849841
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:af84379876721688ca1f809d3d5240242df688a26ededc94f495a6d3c7647a8a
+size 532
