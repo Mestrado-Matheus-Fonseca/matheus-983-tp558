@@ -1,0 +1,64 @@
+[project]
+name = "tp558"
+version = "0.1.0"
+description = "Codes developed to seminars in tp558"
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+  "ipykernel",
+  "manim",
+  "matplotlib",
+  "numpy",
+  "torch",
+  "torchvision",
+]
+
+[dependency-groups]
+dev = [
+  "ruff==0.14.0",
+  "pytest==9.0.0",
+  "httpx==0.28.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tp558"]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "D100",
+  "D104",
+  "D203",
+  "D213",
+  "COM812",
+  "TRY003",
+  "TRY300",
+  "TRY301",
+  "EM101",
+  "EM102",
+  "E501",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "D101", "D102", "D103", "D107", "PLR2004", "PLR0913", "ANN401", "ERA001", "ARG001", "ARG002"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
