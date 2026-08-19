@@ -23,6 +23,7 @@ seminar_2/
     ├── 01_introduction_sam2.ipynb
     ├── 02_data_preparation.ipynb
     ├── 03_sam2_inference.ipynb
+    ├── 03_1_sam2_efficiency_comparison.ipynb
     ├── 04_results_reproduction.ipynb
     └── 05_visualizations_for_seminar.ipynb
 ```
@@ -42,7 +43,8 @@ uv run --with jupyter jupyter lab seminar_2/notebooks
 Execute os notebooks em ordem. O caminho básico usa apenas as dependências já
 declaradas e funciona em CPU. O notebook 03 usa um baseline de cor quando o
 SAM 2 não está instalado; esse baseline valida o fluxo e as métricas, mas não é
-apresentado como resultado do SAM 2.
+apresentado como resultado do SAM 2. O notebook 03.1 requer o SAM 2 e compara
+seleção de instância e tempo com um baseline clássico orientado por cor.
 
 ## Inferência com o SAM 2 oficial
 
@@ -78,4 +80,3 @@ feitas em uma NVIDIA A100).
 
 Cada notebook indica as seções, figuras ou tabelas do PDF usadas como fonte.
 Código e checkpoints oficiais: <https://github.com/facebookresearch/sam2>.
-
