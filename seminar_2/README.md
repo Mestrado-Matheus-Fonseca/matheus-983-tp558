@@ -80,3 +80,15 @@ feitas em uma NVIDIA A100).
 
 Cada notebook indica as seções, figuras ou tabelas do PDF usadas como fonte.
 Código e checkpoints oficiais: <https://github.com/facebookresearch/sam2>.
+
+## Vídeos Manim
+
+As cenas `SAM2UsageDemo` e `SAM2ArchitectureFlow` estão em
+`manim/sam2_scenes.py`. Para renderizá-las em 720p/30 FPS:
+
+```bash
+uv run manim -qm --media_dir seminar_2/data/outputs/manim \
+  seminar_2/manim/sam2_scenes.py SAM2UsageDemo SAM2ArchitectureFlow
+```
+
+Os MP4s usam os frames, máscaras e métricas produzidos pelo notebook 03.
