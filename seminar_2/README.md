@@ -92,3 +92,12 @@ uv run manim -qm --media_dir seminar_2/data/outputs/manim \
 ```
 
 Os MP4s usam os frames, máscaras e métricas produzidos pelo notebook 03.
+
+Para gerar versões GIF otimizadas para slides:
+
+```bash
+python3 seminar_2/manim/export_gifs.py
+```
+
+Por padrão, os GIFs são exportados em `data/outputs/manim/` com 960 px de
+largura, 12 FPS e repetição contínua. Use `--width` e `--fps` para ajustar.
