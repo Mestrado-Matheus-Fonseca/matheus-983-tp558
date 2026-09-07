@@ -1,0 +1,9 @@
+# This file is used internally by FFMPEG.
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00000.mp4'
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00001.mp4'
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00002.mp4'
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00003.mp4'
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00004.mp4'
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00005.mp4'
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00006.mp4'
+file 'file:/home/matheus/Documentos/mestrado/repositories/matheus-983-tp558/seminar_3/data/outputs/manim/cache/videos/augmentation_scenes/720p30/partial_movie_files/Misturas/uncached_00007.mp4'

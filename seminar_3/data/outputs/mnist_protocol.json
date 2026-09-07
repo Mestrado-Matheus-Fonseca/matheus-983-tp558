@@ -1,0 +1,23 @@
+{
+  "dataset": "MNIST",
+  "train": 2000,
+  "validation": 1000,
+  "test": 2000,
+  "split_seed": 558,
+  "seeds": [
+    7,
+    23,
+    42
+  ],
+  "epochs": 15,
+  "batch": 128,
+  "device": "cpu",
+  "threads": 2,
+  "model": "Flatten-Linear(784,128)-ReLU-Linear(128,10)",
+  "optimizer": "Adam lr=0.001",
+  "python": "3.13.11",
+  "torch": "2.13.0+cpu",
+  "albumentations": "2.0.8",
+  "numpy": "2.5.1",
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39"
+}
