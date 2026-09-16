@@ -1,6 +1,6 @@
 # Seminário 3 — Image Data Augmentation
 
-Quatro notebooks simples, com explicações em português, verificações executáveis,
+Seis notebooks simples, com explicações em português, verificações executáveis,
 figuras, tabelas e animações Manim para apoiar a apresentação dos dois artigos.
 Os notebooks são entregues com as saídas da execução. Todos os experimentos usam CPU.
 
@@ -12,6 +12,8 @@ Os notebooks são entregues com as saídas da execução. Todos os experimentos 
 | [02 — Experimento MNIST](notebooks/02_experimento_mnist.ipynb) | Treinamento real de uma MLP, cinco políticas, três sementes, testes limpo e deslocado |
 | [03 — Tabelas e benchmark](notebooks/03_tabelas_e_benchmark.ipynb) | Auditoria das Tabelas 2–4 do survey e Tabela I de Albumentations; benchmark local |
 | [04 — Animações Manim](notebooks/04_animacoes_manim.ipynb) | Renderização, reprodução de MP4/GIF e roteiro de fala |
+| [05 — CIFAR-10 completo](notebooks/05_experimento_cifar10.ipynb) | Seis políticas, 60 mil imagens RGB, três sementes e robustez a perturbações |
+| [06 — Visualizações coloridas](notebooks/06_visualizacoes_coloridas.ipynb) | Transformações sobre fotografia, máscaras e caixas COCO; Mixup/CutMix no CIFAR-10 |
 
 Na raiz do repositório:
 
@@ -46,12 +48,26 @@ usam `Text`, dispensando LaTeX.
 | Imagem e rótulo | [TransformacoesRotulos.mp4](data/outputs/manim/TransformacoesRotulos.mp4) | [TransformacoesRotulos.gif](data/outputs/manim/TransformacoesRotulos.gif) |
 | Cutout, Mixup e CutMix | [Misturas.mp4](data/outputs/manim/Misturas.mp4) | [Misturas.gif](data/outputs/manim/Misturas.gif) |
 | Resultados locais | [Resultados.mp4](data/outputs/manim/Resultados.mp4) | [Resultados.gif](data/outputs/manim/Resultados.gif) |
+| Transformações em imagem COCO | [CocoTransformacoes.mp4](data/outputs/manim/CocoTransformacoes.mp4) | [CocoTransformacoes.gif](data/outputs/manim/CocoTransformacoes.gif) |
+| Mixup e CutMix no CIFAR-10 | [CifarMisturas.mp4](data/outputs/manim/CifarMisturas.mp4) | [CifarMisturas.gif](data/outputs/manim/CifarMisturas.gif) |
+| Resultados CIFAR-10 | [CifarResultados.mp4](data/outputs/manim/CifarResultados.mp4) | [CifarResultados.gif](data/outputs/manim/CifarResultados.gif) |
 
 Para regenerar apenas as animações, após os notebooks 01–03:
 
 ```bash
 uv run --group seminar3 seminar_3/manim/render.py
 ```
+
+Para executar a análise colorida e renderizar somente as três cenas novas:
+
+```bash
+uv run --group seminar3 seminar_3/run_notebooks.py 05 06
+uv run --group seminar3 seminar_3/manim/render.py --color
+```
+
+O primeiro download do espelho FastAI/AWS tem aproximadamente 129 MB. O notebook 05 usa
+45 mil imagens para treino, 5 mil para validação e as 10 mil imagens oficiais de
+teste. Em CPU, as 18 execuções podem levar dezenas de minutos.
 
 As cenas estão em [manim/augmentation_scenes.py](manim/augmentation_scenes.py).
 Os arquivos finais são preservados em `data/outputs/manim/`; somente caches e
@@ -67,6 +83,14 @@ métricas produzidos pelos notebooks, sem resultados fictícios.
   Split estratificado fixo, inicialização e ordem dos lotes pareadas por semente.
   Usa a última época, sem seleção pelo teste. Médias e desvios não são intervalos
   de confiança e não demonstram significância estatística com três sementes.
+- **Experimento colorido completo:** CIFAR-10, CNN pequena treinada do zero,
+  45.000/5.000/10.000 imagens em treino/validação/teste, seis políticas e três
+  sementes. Compara teste limpo, translação fixa e escurecimento. Mixup e CutMix
+  transformam também os rótulos, com λ auditável no código.
+- **Demonstração COCO:** uma fotografia do conjunto de validação 2017 e quatro
+  anotações oficiais (dois gatos e dois controles remotos) mostram flip,
+  rotação/escala, cor/contraste, blur, grayscale
+  e Cutout. Imagem, máscaras e caixas são transformadas de forma sincronizada.
 - **Análise dos números publicados:** transcrição auditável em CSV e gráficos
   dos ganhos recalculados. A auditoria encontrou cinco divergências entre a
   coluna de ganho e a subtração das colunas com/sem augmentation; ambos os
@@ -101,10 +125,34 @@ quanto os limites do aumento de dados, sem selecionar somente resultados favorá
 
 Os valores completos estão em [mnist_summary.csv](data/outputs/mnist_summary.csv).
 Esta tabela registra a execução entregue; ao modificar parâmetros ou reexecutar
-com outras versões, consulte os CSVs regenerados. Os quatro notebooks foram
+com outras versões, consulte os CSVs regenerados. Os notebooks 01–04 foram
 executados integralmente, sem células com erro. Foram verificados também os
 três MP4s (1280×720, 30 FPS) e os três GIFs (800×450, 10 FPS), com duração entre
 15,5 e 17 segundos por cena.
+
+### CIFAR-10 colorido
+
+Acurácia em %, média ± desvio padrão amostral entre três sementes:
+
+| Política | Teste limpo | Translação +4 px | Brilho ×0,65 |
+|---|---:|---:|---:|
+| Sem augmentation | 60,74 ± 2,14 | 41,93 ± 5,78 | 54,27 ± 1,32 |
+| Geometria | 61,04 ± 1,36 | 45,46 ± 3,89 | 53,18 ± 1,19 |
+| Geometria + cor | **62,08 ± 2,10** | 44,38 ± 2,30 | **58,79 ± 1,51** |
+| Geometria + Cutout | 60,81 ± 1,15 | **46,48 ± 1,97** | 52,98 ± 0,11 |
+| Geometria + Mixup | 58,72 ± 1,37 | 41,65 ± 5,44 | 52,89 ± 1,82 |
+| Geometria + CutMix | 55,99 ± 1,22 | 45,19 ± 3,14 | 44,95 ± 0,82 |
+
+Cor/contraste obteve +1,34 p.p. no teste limpo e +4,52 p.p. no teste
+escurecido em relação à referência. Cutout obteve +4,55 p.p. sob translação.
+Mixup e CutMix perderam desempenho neste protocolo curto; o material preserva
+esses resultados para deixar claro que augmentation depende da tarefa,
+intensidade, arquitetura e duração do treinamento.
+
+Os valores completos estão em
+[cifar10_summary.csv](data/outputs/color/cifar10_summary.csv). Os dois notebooks
+novos foram executados sem erro. Os três MP4s coloridos são 1280×720 a 30 FPS;
+os GIFs são 800×450 a 10 FPS e têm entre 9,0 e 19,1 segundos.
 
 ## Arquivos para os slides e auditoria
 
@@ -112,6 +160,10 @@ três MP4s (1280×720, 30 FPS) e os três GIFs (800×450, 10 FPS), com duração
 - `data/outputs/mnist_accuracy.png`, `mnist_learning.png`: resultados locais.
 - `data/outputs/survey_gains.png`, `paper_speedup.png`: dados dos artigos.
 - `data/outputs/benchmark_local.png`: tempos medidos nesta máquina.
+- `data/outputs/color/cifar10_accuracy.png`, `cifar10_learning.png`: comparação
+  completa das políticas no conjunto colorido.
+- `data/outputs/color/coco_effects_grid.png`, `cifar_mix_examples.png`: efeitos
+  visuais usados nas animações.
 - `data/outputs/*results.csv`, `*curves.csv`, `*summary.csv`, `benchmark_raw.csv`:
   medições por execução, época e repetição.
 - `data/outputs/*protocol.json`: parâmetros, ambiente e versões.
