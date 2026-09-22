@@ -1,0 +1,7 @@
+operation,library,median_ms,q1_ms,q3_ms
+HorizontalFlip,Albumentations,0.020772759999999998,0.02005775,0.02127395
+HorizontalFlip,torchvision Pillow,0.08489492,0.08421374000000001,0.08514763
+VerticalFlip,Albumentations,0.016044489999999998,0.01595958,0.01657177
+VerticalFlip,torchvision Pillow,0.06823407000000001,0.06732222,0.06828477000000001
+Brightness x1.2,Albumentations,0.05875872,0.05843425,0.058851230000000004
+Brightness x1.2,torchvision Pillow,0.20053999,0.20028415,0.2007196

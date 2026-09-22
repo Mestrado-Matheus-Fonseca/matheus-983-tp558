@@ -1,0 +1,5 @@
+data/outputs/.cache/
+data/outputs/manim/cache/
+__pycache__/
+data/raw/cifar10/
+data/raw/cifar10.tgz

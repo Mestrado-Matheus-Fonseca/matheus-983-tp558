@@ -1,0 +1,37 @@
+{
+  "dataset": "CIFAR-10",
+  "train": 45000,
+  "validation": 5000,
+  "test": 10000,
+  "split_seed": 558,
+  "seeds": [
+    7,
+    23,
+    42
+  ],
+  "epochs": 20,
+  "batch": 256,
+  "policies": [
+    "Sem augmentation",
+    "Geometria",
+    "Geometria + cor",
+    "Geometria + Cutout",
+    "Geometria + Mixup",
+    "Geometria + CutMix"
+  ],
+  "device": "cpu",
+  "threads": 6,
+  "optimizer": "Adam lr=0.001",
+  "selection": "last epoch, no test selection",
+  "model": "Sequential(\n  (0): Conv2d(3, 12, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))\n  (1): ReLU()\n  (2): Conv2d(12, 24, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))\n  (3): ReLU()\n  (4): Conv2d(24, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))\n  (5): ReLU()\n  (6): Flatten(start_dim=1, end_dim=-1)\n  (7): Linear(in_features=768, out_features=128, bias=True)\n  (8): ReLU()\n  (9): Linear(in_features=128, out_features=10, bias=True)\n)",
+  "parameters": 113090,
+  "perturbations": {
+    "shift": "4 pixels right, zero fill",
+    "dark": "uint8 round(image * 0.65)"
+  },
+  "python": "3.13.11",
+  "torch": "2.13.0+cpu",
+  "albumentations": "2.0.8",
+  "numpy": "2.5.1",
+  "platform": "Linux-6.8.0-139-generic-x86_64-with-glibc2.39"
+}
