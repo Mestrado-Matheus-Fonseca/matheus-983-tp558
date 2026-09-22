@@ -1,0 +1,31 @@
+operation,library,repeat,ms_per_image
+HorizontalFlip,torchvision Pillow,0,0.08233402000000001
+HorizontalFlip,Albumentations,0,0.02005775
+HorizontalFlip,torchvision Pillow,1,0.08421374000000001
+HorizontalFlip,Albumentations,1,0.02002993
+HorizontalFlip,torchvision Pillow,2,0.08575261
+HorizontalFlip,Albumentations,2,0.02137264
+HorizontalFlip,torchvision Pillow,3,0.08489492
+HorizontalFlip,Albumentations,3,0.020772759999999998
+HorizontalFlip,torchvision Pillow,4,0.08514763
+HorizontalFlip,Albumentations,4,0.02127395
+VerticalFlip,Albumentations,0,0.01657177
+VerticalFlip,torchvision Pillow,0,0.06679452000000001
+VerticalFlip,Albumentations,1,0.01595958
+VerticalFlip,torchvision Pillow,1,0.06732222
+VerticalFlip,torchvision Pillow,2,0.06828477000000001
+VerticalFlip,Albumentations,2,0.016044489999999998
+VerticalFlip,Albumentations,3,0.01523393
+VerticalFlip,torchvision Pillow,3,0.06823407000000001
+VerticalFlip,torchvision Pillow,4,0.06915937
+VerticalFlip,Albumentations,4,0.01658725
+Brightness x1.2,torchvision Pillow,0,0.20053999
+Brightness x1.2,Albumentations,0,0.05843425
+Brightness x1.2,torchvision Pillow,1,0.20143581
+Brightness x1.2,Albumentations,1,0.05875872
+Brightness x1.2,Albumentations,2,0.0583905
+Brightness x1.2,torchvision Pillow,2,0.2007196
+Brightness x1.2,Albumentations,3,0.058851230000000004
+Brightness x1.2,torchvision Pillow,3,0.20028415
+Brightness x1.2,torchvision Pillow,4,0.19888439000000002
+Brightness x1.2,Albumentations,4,0.05995712
