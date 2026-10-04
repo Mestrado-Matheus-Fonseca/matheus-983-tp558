@@ -1,0 +1,4 @@
+method,COCO,LVIS,ADE20K,EntitySeg,SA-1B,PACO
+Rótulos globais,35.6,35.0,36.0,38.2,39.8,25.8
++ Recortes,37.4,36.9,37.6,39.7,43.5,27.1
++ CutLER,41.0,38.7,39.8,42.2,45.5,28.9

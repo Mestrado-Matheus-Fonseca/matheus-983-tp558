@@ -1,0 +1,25 @@
+{
+  "provenance": "Transcrição manual do PDF local arXiv:2609.06491v1, Tabelas 1–5; valores em %. Não são execuções locais.",
+  "table1_columns": ["ARS", "ARM", "ARL", "AR1000"],
+  "table1": {"UnSAM": [5.7, 13.9, 26.0, 16.4], "SOHES": [2.8, 10.6, 15.7, 11.0], "DiffSeg": [0.3, 12.4, 29.9, 16.0], "M2N2": [0.0, 2.8, 26.5, 9.7], "Diffuse2Seg": [2.6, 15.3, 38.9, 20.7]},
+  "table2_columns": ["SA-1B", "ADE20K", "EntitySeg", "UVO", "PACO"],
+  "table2": {"CutLER": [17.0, 24.8, 22.1, 32.3, 10.7], "UnSAM": [16.4, 16.0, 19.3, 22.8, 9.3], "SOHES": [11.0, 11.6, 11.6, 19.3, 5.2], "DiffSeg": [16.0, 14.1, 17.5, 18.9, 9.8], "M2N2": [9.7, 18.9, 19.7, 29.7, 9.6], "Diffuse2Seg": [20.7, 22.5, 23.8, 29.9, 13.6]},
+  "table3_columns": ["COCO", "LVIS", "ADE20K", "EntitySeg", "SA-1B", "PACO"],
+  "table3": [
+    {"method": "SAM", "images": 11000000, "detector": false, "values": [49.6, 46.1, 45.8, 45.9, 60.8, 18.1]},
+    {"method": "CutLER", "images": 1300000, "detector": false, "values": [28.1, 20.2, 26.3, 23.1, 17.0, 8.9]},
+    {"method": "SOHES", "images": 200000, "detector": false, "values": [30.5, 29.1, 31.1, 33.5, 33.3, 17.1]},
+    {"method": "Diffuse2Seg", "images": 100000, "detector": false, "values": [37.4, 36.9, 37.6, 39.7, 43.5, 27.1]},
+    {"method": "UnSAM", "images": 100000, "detector": true, "values": [40.5, 37.7, 35.7, 39.6, 41.9, 27.5]},
+    {"method": "Diffuse2Seg", "images": 100000, "detector": true, "values": [41.0, 38.7, 39.8, 42.2, 45.5, 28.9]},
+    {"method": "UnSAM", "images": 200000, "detector": true, "values": [41.2, 39.7, 36.8, 40.3, 43.6, 29.1]},
+    {"method": "Diffuse2Seg", "images": 200000, "detector": true, "values": [40.7, 39.0, 39.6, 42.2, 46.6, 29.1]},
+    {"method": "UnSAM", "images": 400000, "detector": true, "values": [42.0, 40.5, 39.1, 41.1, 44.8, 29.7]},
+    {"method": "Diffuse2Seg", "images": 400000, "detector": true, "values": [42.2, 40.0, 40.5, 43.2, 47.8, 29.8]}
+  ],
+  "table4_levels": [[3, 16.3, 2.1, 11.0, 32.4, 1.9], [5, 17.7, 2.5, 12.4, 34.6, 1.8], [6, 18.1, 2.5, 12.7, 35.0, 1.8]],
+  "table4_nms": [[0.5, 15.4, 2.1, 10.8, 30.1, 1.8], [0.7, 17.0, 2.4, 11.9, 33.2, 1.8], [0.8, 17.8, 2.5, 12.4, 34.6, 1.8], [0.9, 18.5, 2.5, 12.9, 36.1, 1.8]],
+  "table5a_columns": ["COCO", "LVIS", "ADE20K", "EntitySeg", "SA-1B", "PACO"],
+  "table5a": {"Rótulos globais": [35.6, 35.0, 36.0, 38.2, 39.8, 25.8], "+ Recortes": [37.4, 36.9, 37.6, 39.7, 43.5, 27.1], "+ CutLER": [41.0, 38.7, 39.8, 42.2, 45.5, 28.9]},
+  "table5b": {"Rodada 1 + CutLER": [37.9, 40.3, 27.0], "Rodada 2 global": [38.7, 40.7, 27.1], "Rodada 2 + recortes": [39.9, 42.5, 28.9]}
+}

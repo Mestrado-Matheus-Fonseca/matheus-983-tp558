@@ -1,0 +1,38 @@
+[
+  {
+    "levels": 3,
+    "nms_iou": 0.5,
+    "toy_recall_50_95": 0.16666666666666669,
+    "mean_best_iou": 0.2934027777777778,
+    "proposals": 2,
+    "recall_50": 0.16666666666666666,
+    "candidates_before_nms": 5
+  },
+  {
+    "levels": 3,
+    "nms_iou": 0.9,
+    "toy_recall_50_95": 0.24999999999999994,
+    "mean_best_iou": 0.3567708333333333,
+    "proposals": 3,
+    "recall_50": 0.3333333333333333,
+    "candidates_before_nms": 5
+  },
+  {
+    "levels": 6,
+    "nms_iou": 0.5,
+    "toy_recall_50_95": 0.16666666666666669,
+    "mean_best_iou": 0.2934027777777778,
+    "proposals": 2,
+    "recall_50": 0.16666666666666666,
+    "candidates_before_nms": 11
+  },
+  {
+    "levels": 6,
+    "nms_iou": 0.9,
+    "toy_recall_50_95": 0.24999999999999994,
+    "mean_best_iou": 0.3567708333333333,
+    "proposals": 3,
+    "recall_50": 0.3333333333333333,
+    "candidates_before_nms": 11
+  }
+]
