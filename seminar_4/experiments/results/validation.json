@@ -1,0 +1,43 @@
+{
+  "checks": "passed",
+  "slides": 36,
+  "notebook_code_cells": {
+    "01_article_pipeline.ipynb": 6,
+    "02_reproduction_and_media.ipynb": 6
+  },
+  "experiments": 9,
+  "media": {
+    "HierarquiaNMS": {
+      "seconds": 13.5,
+      "resolution": "1280x720",
+      "fps": 30
+    },
+    "PipelineDiffuse2Seg": {
+      "seconds": 12.263411,
+      "resolution": "1280x720",
+      "fps": 30
+    },
+    "PropagacaoPrompt": {
+      "seconds": 12.5,
+      "resolution": "1280x720",
+      "fps": 30
+    },
+    "ResultadosLocais": {
+      "seconds": 9.1,
+      "resolution": "1280x720",
+      "fps": 30
+    }
+  },
+  "sha256": {
+    "README.md": "b4d77b014872588a6496373f70f88b5d8c1f95a015032f1658111c7c4164b604",
+    "notes/analysis.md": "35d3ff053747a812d637506f99351dfe88b3ad7aa32d82e14b8218ef66609f5b",
+    "notes/experimental_report.md": "28bb300e2612f2c78f0983072d88763f20016096a2957d57550e5a67a7e2b5fa",
+    "notes/research_application.md": "24e0df784de6db960dbf4e924e5180e69b3eb9fe770be215f2258817a66bc0e4",
+    "presentation/TP558_Diffuse2Seg.pptx": "acb8d194dcae67482faf9d4e1b8105de3a60fcb93826a6e9d22186057c0ca242",
+    "presentation/TP558_Diffuse2Seg.pdf": "bfb7d74929c2de5bca28a290182eab3721c59ecf5725b1537032e192868e831d",
+    "experiments/results/metrics.csv": "a902be347a190384eab5a6f04a742966956aafed9eee44b20dea21f2de6e31b4",
+    "experiments/results/protocol.json": "28511af015b0dd33f168d89e686ec9b8faec85d798b583fe4cb9c2ca68e8a7a7",
+    "notebooks/01_article_pipeline.ipynb": "753091d4d4842d364235411ef71cdb0e85bbf28236c250bd956b1898d0d6c4d4",
+    "notebooks/02_reproduction_and_media.ipynb": "60c5e6fa8867f0225ab9ec7733ffba8721e65a50f8062431824497ae31f1237a"
+  }
+}

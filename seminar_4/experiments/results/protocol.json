@@ -1,0 +1,83 @@
+{
+  "type": "partial_algorithm_reproduction_with_proxy_affinity",
+  "config": {
+    "grid": 24,
+    "prompt_spacing": 6,
+    "p_values": [
+      2.0,
+      1.6,
+      1.2
+    ],
+    "lambda": 0.03,
+    "gradient_epsilon": 1e-08,
+    "stop_squared_update": 1e-08,
+    "max_iterations": 400,
+    "thresholds": [
+      0.186,
+      0.323,
+      0.561,
+      0.974,
+      1.691,
+      2.99
+    ],
+    "min_area": 3,
+    "nms_iou": 0.9,
+    "color_sigma": 0.18,
+    "spatial_sigma": 3.0,
+    "seeds": [
+      7,
+      23,
+      42
+    ],
+    "proposal_cap": 1000
+  },
+  "summary": [
+    {
+      "p": 2.0,
+      "recall_mean": 0.561111111111111,
+      "recall_std": 0.09622504486493764,
+      "iou_mean": 0.7347944074095923
+    },
+    {
+      "p": 1.6,
+      "recall_mean": 0.24999999999999992,
+      "recall_std": 3.3993498887762956e-17,
+      "iou_mean": 0.3567708333333333
+    },
+    {
+      "p": 1.2,
+      "recall_mean": 0.4499999999999999,
+      "recall_std": 0.0,
+      "iou_mean": 0.5268656716417911
+    }
+  ],
+  "checks": {
+    "linear_closed_form_max_error": 1.9026563657931206e-09,
+    "checks": "passed"
+  },
+  "coco_concept": {
+    "executed": true,
+    "image": "COCO val2017 39769",
+    "source_sha256": "dea9e7ef97386345f7cff32f9055da4982da5471c48d575146c796ab4563b04e",
+    "proposals": 1,
+    "iterations": 86,
+    "converged": true,
+    "metrics": "not_evaluated",
+    "linear_comparison": {
+      "proposals": 16,
+      "iterations": 84,
+      "converged": true
+    }
+  },
+  "elapsed_seconds": 4.589933063994977,
+  "python": "3.13.11",
+  "platform": "Linux-6.8.0-142-generic-x86_64-with-glibc2.39",
+  "dependencies": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "matplotlib": "3.11.1",
+    "Pillow": "12.3.0",
+    "manim": "0.20.1"
+  },
+  "paper_sha256": "316c7e10b86dd33970a7dfdf0ad3732992a9216c1f18a7fc2c8bf634e6f48ab0"
+}
