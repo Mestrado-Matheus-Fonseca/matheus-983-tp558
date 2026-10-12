@@ -1,17 +1,6 @@
 # Seminário 4 — Diffuse2Seg
 
-Material em português para **Diffuse2Seg: Diffusion Models Can Segment Anything Without Supervision**, Hümmer et al., [arXiv:2609.06491v1](https://arxiv.org/abs/2609.06491v1). A versão fixa é o [PDF local](articles/2609.06491v1.pdf). Foram usados os ciclos 2/3 como referência, sem alterá-los.
-
-## Começar pela apresentação
-
-- [PPTX — 36 slides, texto editável e notas de fala](presentation/TP558_Diffuse2Seg.pptx)
-- [PDF — os mesmos 36 slides](presentation/TP558_Diffuse2Seg.pdf)
-- [Roteiro completo de fala e referências por slide](presentation/speaker_guide.md)
-- [Fonte editável dos slides](presentation/slides.json)
-
-São **32 slides principais + 4 de apoio**, cerca de **35 minutos** de fala. Títulos/bullets do PPTX são editáveis; gráficos e diagramas entram como imagens, com PNG/SVG e scripts disponíveis. O arquivo foi aberto e exportado pelo LibreOffice para verificar compatibilidade. Vídeos/GIFs ficam separados: inserir os arquivos abaixo nos slides indicados no roteiro, ou reproduzi-los pelo notebook. O PDF tem os visuais estáticos. Para uma fala de 20–25 minutos, usar principalmente 1–6, 8–14, 16–19, 23, 25–26 e 28–32, resumindo protocolo/dados oralmente.
-
-O fundo claro, azul e identificação TP558 seguem a apresentação anterior; as animações mantêm fundo escuro `#101827`, MP4 720p30 e GIF de 800 px a 10 FPS. O tema do template do primeiro ciclo é apenas lido na exportação PPTX.
+Material em português para **Diffuse2Seg: Diffusion Models Can Segment Anything Without Supervision**, Hümmer et al., [arXiv:2609.06491v1](https://arxiv.org/abs/2609.06491v1). A versão fixa é o [PDF local](articles/2609.06491v1.pdf). 
 
 ## Análise e evidências
 
@@ -84,7 +73,7 @@ python3 seminar_4/run.py verify
 
 ```bash
 uv venv --python 3.13 seminar_4/.venv
-uv pip install --python seminar_4/.venv/bin/python -r seminar_4/requirements.txt
+source seminar_4/.venv/bin/activate
 python3 seminar_4/run.py all
 ```
 
@@ -98,7 +87,6 @@ O experimento leva segundos na máquina utilizada; renderizar animações e note
 seminar_4/
 ├── articles/                   # PDF original existente
 ├── notes/                      # análise, relatório, pesquisa, fontes
-├── presentation/               # PPTX/PDF, fonte JSON, roteiro, previews
 ├── notebooks/                  # duas análises executadas e runner
 ├── experiments/scripts/        # algoritmo e verificação dos artefatos
 ├── experiments/results/        # métricas CSV, protocolo JSON e mapas NPZ
@@ -106,7 +94,6 @@ seminar_4/
 ├── data/processed/paper_results/# CSVs transcritos e ganhos recalculados
 ├── data/outputs/                # visuais locais e MP4/GIF Manim
 ├── manim/                      # cenas e renderização
-├── requirements.txt
 └── run.py
 ```
 
