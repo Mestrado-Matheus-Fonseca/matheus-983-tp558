@@ -1,0 +1,20 @@
+[
+  {
+    "file": "official_README.md",
+    "url": "https://github.com/luosiallen/latent-consistency-model/blob/a9ad79587cc8bd1e404ccd1a3056a3da969b2f62/README.md",
+    "consulted_session_date": "2026-10-20",
+    "sha256": "4f6c6c50743a54951116530f4b23597976c60ca40776ed54b68469eb7dbf691c"
+  },
+  {
+    "file": "diffusers_v0.35.1_train_lcm.py.txt",
+    "url": "https://github.com/huggingface/diffusers/blob/v0.35.1/examples/consistency_distillation/train_lcm_distill_sd_wds.py",
+    "consulted_session_date": "2026-10-20",
+    "sha256": "4ff171a84e68558a04e45848a606c6ffb2c189c07c4ff8d71ce9f2f89db4c307"
+  },
+  {
+    "file": "diffusers_v0.35.1_scheduler.py.txt",
+    "url": "https://github.com/huggingface/diffusers/blob/v0.35.1/src/diffusers/schedulers/scheduling_lcm.py",
+    "consulted_session_date": "2026-10-20",
+    "sha256": "59cba5f4e6d9752dc9713d83956e4ff71db900564b6c9632e8fb787987481f1d"
+  }
+]

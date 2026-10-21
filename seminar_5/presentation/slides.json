@@ -1,0 +1,494 @@
+[
+  {
+    "kind": "cover",
+    "section": "SEMINÁRIO 5 · TP558",
+    "title": "Latent Consistency Models",
+    "subtitle": "Geração em poucos passos e uma ponte para aumento de dados SAR",
+    "source": "Luo et al. · arXiv:2310.04378v1 · 6 de outubro de 2023",
+    "notes": "Apresentar o objetivo: entender o mecanismo, executar uma demonstração verificável e avaliar a relação com a pesquisa. A reprodução é conceitual em MNIST. A pesquisa SAR acrescentará DDPM para aumentar o treino e depois comparará consistência/LCM. Nenhum resultado SAR foi produzido aqui."
+  },
+  {
+    "kind": "cards",
+    "section": "ABERTURA",
+    "title": "Três perguntas para conduzir a apresentação",
+    "cards": [
+      [
+        "01 · Método",
+        "Como transformar muitas correções de ruído em poucas previsões da imagem limpa?"
+      ],
+      [
+        "02 · Evidência",
+        "O que o artigo reporta e o que conseguimos executar nesta máquina?"
+      ],
+      [
+        "03 · Pesquisa",
+        "Gerar dados SAR mais rápido preserva a utilidade para segmentação?"
+      ]
+    ],
+    "notes": "Roteiro sugerido para 30–35 minutos, adaptável. Aproximadamente 12 minutos para método, 10 para evidências e demonstração e 8 para pesquisa e discussão. Os detalhes matemáticos e a auditoria estão nos notebooks e notas."
+  },
+  {
+    "kind": "cards",
+    "section": "CONTEXTO",
+    "title": "A geração por difusão exige repetir a rede",
+    "cards": [
+      [
+        "Latente",
+        "O autoencoder reduz o custo de representar a imagem."
+      ],
+      [
+        "Iterações",
+        "O denoiser ainda é avaliado repetidamente até gerar a saída."
+      ],
+      [
+        "Guidance",
+        "CFG convencional combina os ramos condicionado e não condicionado."
+      ]
+    ],
+    "source": "Paper, §§1–3",
+    "notes": "Conectar ao seminário de DDPM. Difusão latente reduz resolução interna, enquanto o LCM reduz avaliações necessárias. Dois ramos podem ser agrupados num batch, mas isso não significa custo equivalente a um ramo. Não converter número de passos diretamente em aceleração real."
+  },
+  {
+    "kind": "cards",
+    "section": "TRABALHOS ANTERIORES",
+    "title": "Solvers e destilação atacam custos diferentes",
+    "cards": [
+      [
+        "DDIM / DPM",
+        "Melhoram a integração usando o mesmo professor."
+      ],
+      [
+        "Guided-Distill",
+        "Treina em dois estágios para reproduzir geração guiada."
+      ],
+      [
+        "Consistency Models",
+        "Aprendem a origem comum de uma trajetória."
+      ]
+    ],
+    "source": "Paper, §§2–3 e Apêndice G",
+    "notes": "Explicar que o LCM não inventa difusão latente, guidance ou consistência separadamente. Sua contribuição integra esses elementos para texto e alta resolução. A comparação com Guided-Distill no paper usa uma reimplementação e recursos alterados."
+  },
+  {
+    "kind": "cards",
+    "section": "CONTRIBUIÇÃO",
+    "title": "LCM aprende o destino da trajetória guiada",
+    "cards": [
+      [
+        "Consistência latente",
+        "Predição direta da origem, preservando a estrutura do professor."
+      ],
+      [
+        "Guidance em um estágio",
+        "A intensidade ω passa a condicionar o aluno."
+      ],
+      [
+        "Skipping + LCF",
+        "Saltos temporais no LCD e adaptação posterior sem professor."
+      ]
+    ],
+    "source": "Paper, §4",
+    "notes": "O ponto final é o da PF-ODE guiada. Não é possível recuperar uma imagem original única a partir de qualquer ruído. LCF é outra etapa proposta pelos autores, não o treinamento executado nesta demonstração."
+  },
+  {
+    "kind": "video",
+    "section": "PIPELINE",
+    "title": "Professor e alvo ajudam no treino",
+    "scene": "PipelineLCM",
+    "source": "Diagrama próprio · Algoritmos 1 e 3",
+    "notes": "Reproduzir o vídeo por clique. Separar professor congelado, aluno treinável e alvo EMA. Na inferência, professor e solver de treino são removidos. A estimativa limpa passa pelo decoder."
+  },
+  {
+    "kind": "video",
+    "section": "ARQUITETURA",
+    "title": "O aluno recebe tempo, condição e guidance",
+    "scene": "ArchitectureLCM",
+    "source": "Paper, §4.2 e Apêndice F",
+    "notes": "O paper inicializa o aluno a partir do professor e acrescenta projeção do embedding de guidance. O espaço latente do paper vem do VAE e o backbone é U-Net. O esquema funcional é comum, mas a demonstração usa PCA e MLP. Não apresentar o MLP como arquitetura do artigo."
+  },
+  {
+    "kind": "equation",
+    "section": "MATEMÁTICA",
+    "title": "Ruído conhecido permite treinar o professor",
+    "formula": "zₜ = αₜ z₀ + σₜ ε",
+    "cards": [
+      [
+        "Sinal",
+        "αₜ controla a contribuição da imagem limpa."
+      ],
+      [
+        "Ruído",
+        "ε é amostrado e σₜ controla sua intensidade."
+      ],
+      [
+        "Exemplo",
+        "0,8 × 2 + 0,6 × (−1) = 1"
+      ]
+    ],
+    "source": "Paper, Eq. 22 · exemplo numérico didático",
+    "notes": "O professor aprende a prever o ruído sorteado por MSE. A previsão ideal é uma expectativa condicional. Relacionar score e epsilon: epsilon aproxima menos sigma vezes o score. Na demonstração, a agenda VP tem alpha²+sigma²=1."
+  },
+  {
+    "kind": "equation",
+    "section": "MATEMÁTICA",
+    "title": "Guidance altera a trajetória que será destilada",
+    "formula": "ε̃ = (1 + ω) εcond − ω εvazio",
+    "cards": [
+      [
+        "Dois ramos",
+        "O professor compara predição condicionada e vazia."
+      ],
+      [
+        "Um aluno",
+        "LCM aprende a incorporar a intensidade ω."
+      ],
+      [
+        "Convenção",
+        "Na forma εvazio + s(εcond − εvazio), s = 1 + ω."
+      ]
+    ],
+    "source": "Paper, Eqs. 12–15",
+    "notes": "Com epsilon condicional 0,2, vazio 0,5 e omega 2, a previsão guiada é −0,4. Uma API pode usar outra convenção. Não copiar valores sem verificar a fórmula. Guidance maior não garante melhor FID ou maior diversidade."
+  },
+  {
+    "kind": "video",
+    "section": "MATEMÁTICA",
+    "title": "A consistência une dois tempos",
+    "scene": "ConsistencyMath",
+    "source": "Esquema conceitual · Eqs. 4, 9 e 16",
+    "notes": "Os dois pontos devem estar na mesma trajetória e compartilhar condição e guidance. O alvo no tempo menor é calculado sem gradiente. A condição de contorno f(z,0)=z ancora a função. A linha do vídeo é uma ilustração, não uma integração numérica da PF-ODE."
+  },
+  {
+    "kind": "figure",
+    "section": "TREINAMENTO",
+    "title": "O aluno deve concordar com o alvo EMA",
+    "figure": "assets/figures/equations.png",
+    "takeaway": "Gradiente no aluno · professor congelado · EMA nos pesos",
+    "source": "Paper, Eq. 9 e Algoritmo 1",
+    "notes": "Explicar c_skip e c_out e a recuperação z0=(zt−sigma epsilon)/alpha. O alvo EMA acompanha o aluno sem receber gradiente. Exemplo de EMA: 0,9×2+0,1×4=2,2. A implementação verifica a condição de contorno e o passo DDIM contra identidades numéricas."
+  },
+  {
+    "kind": "figure",
+    "section": "SKIPPING",
+    "title": "Pares próximos demais podem ensinar pouco",
+    "cards": [
+      [
+        "k pequeno",
+        "Alvos semelhantes podem dar perda baixa e convergência lenta."
+      ],
+      [
+        "k intermediário",
+        "O artigo adota k=20 como compromisso na agenda de 1000 tempos."
+      ],
+      [
+        "k grande",
+        "O erro de aproximação depende do solver e pode prejudicar o resultado."
+      ]
+    ],
+    "source": "Paper, §4.3 e Figura 3",
+    "notes": "Não ler uma perda menor entre k diferentes como uma comparação de qualidade. O paper explora k=1,5,10,20 e 50. DPM/DPM++ lidam melhor com saltos grandes em algumas condições. Os valores completos das curvas não são tabulados, portanto não foram digitalizados ou inventados.",
+    "figure": "assets/images/paper_figure3.png",
+    "takeaway": "k pequeno: convergência lenta · k grande: erro do solver"
+  },
+  {
+    "kind": "video",
+    "section": "INFERÊNCIA",
+    "title": "Poucos passos, sem consultar o professor",
+    "scene": "CompareSampling",
+    "source": "Algoritmo 3 · contagem teórica de avaliações",
+    "notes": "LCM alterna previsão limpa e reinjeção de ruído num tempo menor. No último passo retorna a previsão limpa. A contagem de 100 versus 4 avaliações não é uma medição de speedup. O decoder e os custos de infraestrutura também existem."
+  },
+  {
+    "kind": "cards",
+    "section": "PROTOCOLO DO ARTIGO",
+    "title": "As tabelas usam 100 mil iterações",
+    "cards": [
+      [
+        "512 × 512",
+        "SD2.1-Base · ε-prediction · LAION 6+ · batch 72"
+      ],
+      [
+        "768 × 768",
+        "SD2.1 · v-prediction · LAION 6.5+ · batch 16"
+      ],
+      [
+        "Avaliação",
+        "30 mil imagens · 10 mil prompts · FID e CLIP ViT-g/14"
+      ]
+    ],
+    "source": "Paper, §5.1 e Apêndice F",
+    "notes": "Os dois modelos usam learning rate 8e−6, RAdam, EMA 0,999943, DDIM e k20. O paper informa oito A100. Não confundir o experimento visual de 4k iterações/32 horas-GPU com as tabelas principais."
+  },
+  {
+    "kind": "figure",
+    "section": "RESULTADOS PUBLICADOS",
+    "title": "O ganho de FID se concentra em poucos passos",
+    "figure": "assets/figures/paper_fid.png",
+    "takeaway": "512 / 4 passos: DDIM 22,38 → LCM 11,10",
+    "source": "Transcrição das Tabelas 1/2 · não executado localmente",
+    "notes": "O eixo menor é melhor. Em quatro passos e 512 pixels, a diferença é 11,28 pontos de FID. LCM não ganha em toda configuração. Em 768 e oito passos, DPM tem FID 14,08 contra 14,97 do LCM. A comparação não informa desempenho de segmentação."
+  },
+  {
+    "kind": "figure",
+    "section": "RESULTADOS PUBLICADOS",
+    "title": "Alinhamento e distribuição não são a mesma métrica",
+    "figure": "assets/figures/paper_clip.png",
+    "takeaway": "CLIP avalia alinhamento · FID compara distribuições de features",
+    "source": "Transcrição das Tabelas 1/2 · ViT-g/14",
+    "notes": "CLIP maior e FID menor representam objetivos diferentes. Guidance pode melhorar CLIP e prejudicar FID. Nenhuma dessas medidas garante que uma máscara de pista esteja correta. Os números são os reportados no artigo, sem recálculo local da avaliação."
+  },
+  {
+    "kind": "figure",
+    "section": "QUALITATIVO E ABLAÇÃO",
+    "title": "Exemplos selecionados pelos autores",
+    "figure": "assets/images/paper_figure2.png",
+    "takeaway": "Comparação qualitativa em 2 e 4 passos · amostras dos autores",
+    "source": "Luo et al., v1, Figura 2, p. 8 · recorte da página original",
+    "notes": "A figura original mostra exemplos selecionados pelos autores. O LCM é comparado com Guided-Distill e DPM-Solver++ em dois e quatro passos. Não atribuir essas imagens à demonstração local. A página original completa permanece nos assets para consulta."
+  },
+  {
+    "kind": "cards",
+    "section": "ADAPTAÇÃO",
+    "title": "LCF ajusta um LCM sem um professor novo",
+    "cards": [
+      [
+        "Pareamento",
+        "A mesma imagem e o mesmo ruído são usados em dois tempos."
+      ],
+      [
+        "Dados personalizados",
+        "Pokémon e Simpsons · divisão 90/10 · 30k updates."
+      ],
+      [
+        "Alcance",
+        "Evidência qualitativa no artigo. LCF não foi treinado nesta demo."
+      ]
+    ],
+    "source": "Paper, §5.3 e Apêndice C",
+    "notes": "A operação de ruído compartilhado aparece no notebook matemático. O mecanismo difere de usar um professor para estimar outro ponto da PF-ODE. O paper não demonstra adaptação LCF para SAR ou condicionamento espacial por máscara."
+  },
+  {
+    "kind": "cards",
+    "section": "REPRODUÇÃO LOCAL",
+    "title": "Uma demonstração conceitual executada em CPU",
+    "cards": [
+      [
+        "Mantido",
+        "Professor de difusão, guidance, DDIM, consistency loss, EMA e amostragem."
+      ],
+      [
+        "Reduzido",
+        "MNIST 14×14 · PCA 32D · classe · MLP."
+      ],
+      [
+        "Não reproduzido",
+        "Stable Diffusion, texto, VAE, LAION, FID/CLIP e LCF."
+      ]
+    ],
+    "source": "experiments/configs/demo.json · protocol.json",
+    "notes": "A classificação é demonstração conceitual, não reprodução completa nem quantitativa parcial das tabelas. Os componentes matemáticos foram implementados e testados. As escolhas locais estão registradas, em vez de atribuídas aos autores."
+  },
+  {
+    "kind": "figure",
+    "section": "DADOS LOCAIS",
+    "title": "A compressão também impõe um limite",
+    "figure": "assets/figures/pca_reconstruction.png",
+    "takeaway": "6000 treino · 1000 validação · 1000 teste · PCA só no treino",
+    "source": "MNIST local · exemplos de teste · imagens 14×14",
+    "notes": "PCA é um autoencoder linear. A dimensão 32 foi fixada antes da avaliação. Mostramos reais e reconstruções para revelar perda de informação. Em SAR, uma região fina pode ser importante apesar de ocupar poucos pixels. MSE global de reconstrução não é suficiente para validar pistas."
+  },
+  {
+    "kind": "figure",
+    "section": "TREINO LOCAL",
+    "title": "Professor e dois alunos foram treinados",
+    "figure": "assets/figures/training.png",
+    "takeaway": "5000 updates por modelo · ablação k=1/20 · uma seed de treino",
+    "source": "Perdas efetivamente registradas · escalas logarítmicas separadas",
+    "notes": "O professor aprende previsão de ruído com perda DDPM. O baseline de inferência é DDIM. Os alunos começam dos mesmos pesos do professor e usam o mesmo orçamento. A perda de k1 é menor, mas isso não assegura melhor geração. Três seeds posteriores são de amostragem."
+  },
+  {
+    "kind": "figure",
+    "section": "EXEMPLOS LOCAIS",
+    "title": "Saídas salvas, sem seleção manual",
+    "figure": "assets/figures/generation_grid.png",
+    "takeaway": "Primeira amostra de cada classe · seed 101",
+    "source": "Demonstração MNIST · a linha real não é ground truth pareado",
+    "notes": "Comparar a aparência de um passo com quatro passos. Todas as colunas são escolhidas por regra fixa. O real da primeira linha é somente referência da classe. Não há imagem verdadeira única associada ao ruído inicial."
+  },
+  {
+    "kind": "video",
+    "section": "INFERÊNCIA LOCAL",
+    "title": "Quatro previsões limpas durante a geração",
+    "scene": "LocalGeneration",
+    "source": "Históricos salvos dos modelos executados · seed 101",
+    "notes": "O vídeo mostra estimativas limpas intermediárias, não os latentes ruidosos. DDIM e LCM usam o mesmo ruído inicial para esse batch, mas LCM reinjeta novos ruídos entre passos. O contraste é didático e não prova qualidade SAR."
+  },
+  {
+    "kind": "figure",
+    "section": "RESULTADOS LOCAIS",
+    "title": "Aderência de classe e custo de amostragem",
+    "figure": "assets/figures/local_results.png",
+    "takeaway": "Média ± DP de 3 seeds de geração · um treino por modelo",
+    "source": "metrics.csv · batch 300 · CPU · não é FID/CLIP",
+    "notes": "Os números exatos ficam no relatório gerado do CSV. O classificador acerta 92% do teste real. Sintéticos podem ser mais fáceis ou menos diversos e ter aderência maior. A latência mede somente o sampler latente, não o pipeline inteiro. Não inferir significância de pequenas diferenças."
+  },
+  {
+    "kind": "comparison",
+    "section": "COMPARABILIDADE",
+    "title": "O que cada resultado permite afirmar",
+    "source": "Tabelas 1/2, protocolo local e proposta de pesquisa",
+    "notes": "A comparação correta precisa alinhar dataset, modelo e avaliação. O valor FID 11,10 é do artigo. Não há FID local equivalente. Os resultados MNIST verificam o funcionamento da implementação. IoU/Dice SAR depois de aumento são objetivos futuros, não resultados desta apresentação."
+  },
+  {
+    "kind": "cards",
+    "section": "AUDITORIA",
+    "title": "Paper, defaults de código e checkpoint diferem",
+    "cards": [
+      [
+        "Orçamento",
+        "100k nas tabelas ≠ 4k no showcase de 32 horas-GPU."
+      ],
+      [
+        "Configuração",
+        "EMA, otimizador e convenção de guidance exigem verificação."
+      ],
+      [
+        "Pesos",
+        "Dreamshaper divulgado ≠ identidade automática dos modelos SD2.1 das tabelas."
+      ]
+    ],
+    "source": "Paper v1 · README oficial fixado · Diffusers v0.35.1",
+    "notes": "A auditoria separa evidência do preprint e implementação posterior. O script Diffusers consultado usa defaults diferentes, incluindo EMA 0,95 e AdamW. Não foram baixados pesos remotos, portanto não há auditoria de seu conteúdo numérico."
+  },
+  {
+    "kind": "cards",
+    "section": "PESQUISA DE MESTRADO",
+    "title": "Nova direção: DDPM para aumentar o treino SAR",
+    "cards": [
+      [
+        "Problema atual",
+        "Segmentar pistas estreitas em SAR Sentinel-1 com SAM e YOLO."
+      ],
+      [
+        "Etapa planejada",
+        "Treinar DDPM para gerar novos pares úteis ao treinamento."
+      ],
+      [
+        "Comparação posterior",
+        "Avaliar consistência/LCM no custo e no efeito downstream."
+      ]
+    ],
+    "source": "project/second_part_project.pdf + orientação do usuário nesta sessão",
+    "notes": "Distinguir o estado documentado do novo plano. A entrega descreve otimização e ablações, com limites de comparação entre modelos. O usuário acrescentou DDPM e comparação futura com LCM. Não afirmar que a geração SAR já foi realizada."
+  },
+  {
+    "kind": "research_pipeline",
+    "section": "APLICAÇÃO PROPOSTA",
+    "title": "A máscara precisa continuar sendo verdadeira",
+    "source": "Proposta de experimento · nenhuma execução SAR",
+    "notes": "Recomendar gerar a imagem condicionada em máscara conhecida, validando alinhamento. Só gerar imagens não fornece supervisão de segmentação. Separar a geração do treinamento do SAM/YOLO e usar teste real intocado. Condicionar por máscara é adaptação proposta, não resultado do artigo LCM."
+  },
+  {
+    "kind": "cards",
+    "section": "DECISÃO ARQUITETURAL",
+    "title": "DDPM em pixels não vira LCM automaticamente",
+    "cards": [
+      [
+        "Professor em pixels",
+        "Primeiro comparador: destilação por consistência em pixels."
+      ],
+      [
+        "Professor em latentes",
+        "LCD pode manter o mesmo encoder, decoder e condicionamento."
+      ],
+      [
+        "Comparação justa",
+        "Mesmo professor e dados. Autoencoder novo é outra intervenção."
+      ]
+    ],
+    "source": "Análise de aplicabilidade · notes/research_application.md",
+    "notes": "O termo latent é parte da definição. Se a pesquisa começar com DDPM em pixels, chamar seu aluno de LCM seria impreciso. Pode-se comparar sistemas completos em outro estudo, mas não atribuir o resultado apenas ao sampler."
+  },
+  {
+    "kind": "cards",
+    "section": "EXPERIMENTO FUTURO",
+    "title": "Primeiro utilidade, depois aceleração",
+    "cards": [
+      [
+        "A · Aumento DDPM",
+        "Real + aumento convencional versus real + sintéticos, mesmo segmentador."
+      ],
+      [
+        "B · Destilação",
+        "Mesmo professor, mesmos pares aceitos e mesmo orçamento de treino."
+      ],
+      [
+        "Avaliação",
+        "IoU/Dice no teste real, contorno, custo por par aceito e memória."
+      ]
+    ],
+    "source": "Hipóteses e protocolo propostos, não resultados",
+    "notes": "Propor pelo menos três sementes pareadas de treino e avaliação por pista/local. Primeiro usar mesmo número de pares aceitos. Depois fazer um experimento separado com mesmo tempo de geração. Incluir DDIM como controle de redução de passos sem destilação."
+  },
+  {
+    "kind": "cards",
+    "section": "CRITÉRIOS E LIMITAÇÕES",
+    "title": "Velocidade só compensa se preservar utilidade",
+    "cards": [
+      [
+        "Não inferioridade",
+        "Proposta: limite inferior de ΔIoU LCM−DDPM acima de −1 p.p."
+      ],
+      [
+        "Custo",
+        "Proposta: pelo menos 2× menos custo por par aceito, incluindo rejeições."
+      ],
+      [
+        "Riscos",
+        "Máscara desalinhada, perda de pistas no latente, vazamento e baixa diversidade."
+      ]
+    ],
+    "source": "Limiares propostos para pré-registro · não são ganhos esperados medidos",
+    "notes": "Os limiares são propostas de protocolo, não valores do paper. Contabilizar custo da destilação e número de imagens necessário para amortizar. Aumento não cria informação automaticamente. Critério downstream e auditoria das máscaras são decisivos."
+  },
+  {
+    "kind": "cards",
+    "section": "CONCLUSÃO",
+    "title": "Aprender o destino pode reduzir a geração",
+    "cards": [
+      [
+        "Artigo",
+        "LCD combina latentes, guidance, consistência e skipping."
+      ],
+      [
+        "Demonstração",
+        "Treino e inferência executados, com checkpoints e resultados auditáveis."
+      ],
+      [
+        "Pesquisa",
+        "Validar DDPM-SAR e então comparar custo e benefício do aluno destilado."
+      ]
+    ],
+    "notes": "Fechar com a evidência central e o próximo passo concreto. LCM é pertinente à nova direção da pesquisa, mas o benefício deve ser demonstrado com segmentação em SAR real. Disponibilizar README, notebooks, vídeos, código e relatórios."
+  },
+  {
+    "kind": "references",
+    "section": "REFERÊNCIAS E MATERIAL",
+    "title": "Fontes e trilha de reprodução",
+    "cards": [
+      [
+        "Artigo",
+        "Luo et al. (2023). arXiv:2310.04378v1. Texto e apêndices."
+      ],
+      [
+        "Código consultado",
+        "Repositório oficial fixado por commit e Diffusers v0.35.1."
+      ],
+      [
+        "Entrega",
+        "README · 7 notebooks · checkpoints · CSV/JSON · 5 vídeos/GIFs."
+      ]
+    ],
+    "notes": "Referências conceituais adicionais são listadas no resumo técnico, com a origem de cada afirmação. O README contém os comandos para executar todas as etapas. Esta apresentação contém vídeos MP4 incorporados, reproduzidos por clique."
+  }
+]
