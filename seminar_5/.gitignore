@@ -1,0 +1,6 @@
+.venv/
+.deps/
+.cache/
+__pycache__/
+manim/media/
+.ipynb_checkpoints/

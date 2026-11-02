@@ -1,0 +1,42 @@
+[
+  {
+    "scene": "PipelineLCM",
+    "duration_seconds": 10.798698,
+    "video": "assets/videos/PipelineLCM.mp4",
+    "resolution": "1280x720",
+    "fps": 30,
+    "gif_fps": 10
+  },
+  {
+    "scene": "ArchitectureLCM",
+    "duration_seconds": 9.3,
+    "video": "assets/videos/ArchitectureLCM.mp4",
+    "resolution": "1280x720",
+    "fps": 30,
+    "gif_fps": 10
+  },
+  {
+    "scene": "ConsistencyMath",
+    "duration_seconds": 8.7,
+    "video": "assets/videos/ConsistencyMath.mp4",
+    "resolution": "1280x720",
+    "fps": 30,
+    "gif_fps": 10
+  },
+  {
+    "scene": "CompareSampling",
+    "duration_seconds": 10.666667,
+    "video": "assets/videos/CompareSampling.mp4",
+    "resolution": "1280x720",
+    "fps": 30,
+    "gif_fps": 10
+  },
+  {
+    "scene": "LocalGeneration",
+    "duration_seconds": 10.0,
+    "video": "assets/videos/LocalGeneration.mp4",
+    "resolution": "1280x720",
+    "fps": 30,
+    "gif_fps": 10
+  }
+]

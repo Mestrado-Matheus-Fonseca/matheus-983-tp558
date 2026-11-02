@@ -1,0 +1,90 @@
+{
+  "classification": "Demonstração conceitual do LCD, não reprodução quantitativa de Stable Diffusion",
+  "config": {
+    "classification": "Demonstração conceitual do LCD, não reprodução quantitativa de Stable Diffusion",
+    "seed": 42,
+    "train_per_class": 600,
+    "val_per_class": 100,
+    "test_per_class": 100,
+    "image_size": 14,
+    "latent_dim": 32,
+    "hidden_dim": 128,
+    "timesteps": 1000,
+    "beta_start": 0.00085,
+    "beta_end": 0.012,
+    "teacher_steps": 5000,
+    "student_steps": 5000,
+    "classifier_steps": 1000,
+    "batch_size": 128,
+    "teacher_lr": 0.001,
+    "student_lr": 0.0002,
+    "classifier_lr": 0.001,
+    "ema": 0.99,
+    "guidance_min": 0.0,
+    "guidance_max": 2.0,
+    "eval_guidance": 1.0,
+    "skip_intervals": [
+      1,
+      20
+    ],
+    "inference_steps": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "sample_seeds": [
+      101,
+      202,
+      303
+    ],
+    "samples_per_class": 30,
+    "boundary_time_scale": 10.0,
+    "sigma_data": 0.5,
+    "threads": 2
+  },
+  "python": "3.13.11",
+  "platform": "Linux-6.8.0-147-generic-x86_64-with-glibc2.39",
+  "processor": "x86_64",
+  "hardware": "CPU, CUDA disponível: False",
+  "threads": 2,
+  "versions": {
+    "torch": "2.13.0+cpu",
+    "numpy": "2.5.1",
+    "matplotlib": "3.11.1",
+    "manim": "0.20.1",
+    "nbformat": "5.11.1",
+    "nbclient": "0.11.0",
+    "pillow": "12.3.0"
+  },
+  "durations": {
+    "classifier_seconds": 0.4723199239997484,
+    "teacher_seconds": 4.904439066998748,
+    "lcm_k1_seconds": 9.386053602000175,
+    "lcm_k20_seconds": 9.059557160999248
+  },
+  "classifier_accuracy_real": {
+    "val": 0.9269999861717224,
+    "test": 0.9200000166893005
+  },
+  "checks": {
+    "ddim_max_error": 4.76837158203125e-07,
+    "boundary_max_error": 0.0,
+    "guidance_max_error": 1.9073486328125e-06,
+    "ema_max_error": 1.1920928955078125e-07,
+    "target_detached": true
+  },
+  "data_sha256": "397721297b52b507be55a65e34a1f30420289979c03db5b1311e5e29b7815c52",
+  "paper_sha256": "c8a1bdb8eb03ca850dd6fb3457c18e25b5852d6ae2777f738cc12530f0a0ba6b",
+  "script_sha256": "b43a68eefe8f6fc6753810ae9dc78cbc17c1cc87742ce8682363887a72a34b9b",
+  "config_sha256": "7e7aac239a80818b93fe243671ee0194df86a11a3defad6a03d7882fff228ac7",
+  "checkpoint_sha256": {
+    "lcm_k20.pt": "556b8b1ff7bf21d154b72339ea06d75be9aa5cbc6f47d082475964d81a9d854c",
+    "lcm_k1.pt": "6d996235d8c82c666bf0c86ff4595297cdb1ff6136d981fde3de5131c8361435",
+    "classifier.pt": "68156556da94e1389d15e273d34e77ff5521203ea6927e42b2ed1a3286bd3ea7",
+    "teacher.pt": "dfdac2833515c7d1744e86c5d46bc501b235ee8374e8292d9ca864d4c5607e9a"
+  },
+  "timing_scope": "batch de 300, amostragem latente, exclui PCA decode/classificador/I/O",
+  "statistical_scope": "1 treino por modelo, 3 sementes de geração, sem inferência de significância",
+  "selection": "config fixada antes do teste, sem seleção por métricas de teste"
+}

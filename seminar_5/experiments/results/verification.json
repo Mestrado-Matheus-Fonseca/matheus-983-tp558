@@ -1,0 +1,30 @@
+{
+  "python_syntax": "passed",
+  "numerical": {
+    "ddim_max_error": 4.76837158203125e-07,
+    "boundary_max_error": 0.0,
+    "guidance_max_error": 1.9073486328125e-06,
+    "ema_max_error": 1.1920928955078125e-07,
+    "target_detached": true
+  },
+  "data_splits_and_pca": "passed",
+  "source_data_config_checkpoint_hashes": "passed",
+  "inference_determinism_and_calls": "passed",
+  "metrics_and_regenerated_images": {
+    "rows": 39,
+    "aggregate_rows": 13
+  },
+  "notebooks": {
+    "executed": 7,
+    "executed_code_cells": 26
+  },
+  "videos_and_gifs": 5,
+  "presentation": {
+    "pptx_slides": 33,
+    "pdf_pages": 33,
+    "embedded_mp4": 5
+  },
+  "paper_table_sentinels": "passed, complete tables visually checked against PDF page 7",
+  "documentation": "present",
+  "status": "passed"
+}
